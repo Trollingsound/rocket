@@ -60,8 +60,12 @@ export default async function handler(req, res) {
 
     try {
 
+        if (process.stdout.isTTY) {
         process.stdout.clearLine();  // Clear the current line
         process.stdout.cursorTo(0);  // Move cursor to beginning of line
+}
+
+        
 
         // Delay function with logging every second in one line
         const delayWithLog = async (sec) => {
@@ -71,10 +75,12 @@ export default async function handler(req, res) {
                     elapsed++;
                     const remaining = sec - elapsed;
 
+        if (process.stdout.isTTY) {   
                     // Overwrite the same line in the console
                     process.stdout.clearLine();  // Clear the current line
                     process.stdout.cursorTo(0);  // Move cursor to beginning of line
                     process.stdout.write(` Elapsed time: ${elapsed} second(s), Remaining time: ${remaining} second(s)`);
+        }
 
                     if (elapsed >= sec) {
                         clearInterval(interval);
